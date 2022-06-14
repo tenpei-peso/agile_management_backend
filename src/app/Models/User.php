@@ -52,4 +52,7 @@ class User extends Authenticatable
             return $e;
         }
     }
+    public function test () {
+        
+    }
 }
