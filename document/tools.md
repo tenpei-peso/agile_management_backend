@@ -45,7 +45,7 @@ yaml形式での記述
 - paths に対象ディレクトリを指定
 - level で解析のレベルを指定
     - 1 ~ 7(max) までがある
-- ルールは [こちら](https://phpstan.org/config-reference) を参照
+- ルールは [こちら](https://phpstan.org/config-reference) 、もしくは(https://qiita.com/shimabox/items/df03dde8bd6db4733231)
 
 ```yaml=
 includes:
