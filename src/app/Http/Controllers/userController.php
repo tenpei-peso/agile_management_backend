@@ -1,10 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Exception;
 
 class userController extends Controller
 {
@@ -12,7 +13,7 @@ class userController extends Controller
         try {
             $allUser = $user->userList();
             return response()->json($allUser);
-        } catch (\Exception $e){
+        } catch (Exception $e){
             Log::emergency($e->getMessage());
             return $e;
         }
