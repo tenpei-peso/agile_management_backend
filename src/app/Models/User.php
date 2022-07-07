@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Models;
 
@@ -20,6 +22,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $guarded = [
+
         'name',
         'email',
         'password',
@@ -30,7 +33,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $hidden = [ 
+    protected $hidden = [
         'password',
         'remember_token',
     ];
@@ -44,7 +47,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function userList () {
+    public function userList() {
         try {
             $allUser = $this->all();
             return $allUser;

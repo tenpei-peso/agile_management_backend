@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
@@ -9,7 +11,7 @@ use Exception;
 
 class userController extends Controller
 {
-    public function userList (User $user) {
+    public function userList(User $user) {
         try {
             $allUser = $user->userList();
             return response()->json($allUser);
