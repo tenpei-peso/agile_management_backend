@@ -16,7 +16,7 @@ class CreateContractsTable extends Migration
         Schema::create('contracts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_project_id')->references('id')->on('users_projects');
-            $table->binary('pdf')->comment('契約書のpdf');
+            $table->string('pdf')->comment('契約書のpdfのパス');
             $table->dateTime('contractDate')->comment('契約開始日');
             $table->dateTime('expiredDate')->comment('契約終了日');
             $table->timestamps();

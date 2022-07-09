@@ -16,6 +16,7 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('name')->comment('プロジェクト名');
+            $table->string('client')->comment('企業名');
             $table->timestamps();
         });
     }
