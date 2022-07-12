@@ -15,12 +15,14 @@ class CreateTimecardsTable extends Migration
     {
         Schema::create('timecards', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->comment('updateOrCreateするため2020060701など');
-            $table->foreignId('user_id');
-            $table->foreignId('project_id');
-            $table->string('user_name')->comment('ユーザーの名前');
-            $table->string('project_name')->comment('プロジェクトの名前');
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('project_id')->constrained();
+            // $table->string('user_name')->comment('ユーザーの名前');
+            // $table->string('project_name')->comment('プロジェクトの名前');
             $table->date('year_month')->comment('2022-06など');
             $table->integer('day')->comment('2など');
+            $table->integer('ticket_number')->comment('APIから取得したチケット番号');
+            $table->string('ticket_name')->comment('APIから取得したチケット名');
             $table->time('start_time')->comment('12:00など');
             $table->time('finish_time')->comment('12:00など');
             $table->time('rest_time')->comment('12:00など');

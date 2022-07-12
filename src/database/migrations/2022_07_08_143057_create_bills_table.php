@@ -15,13 +15,14 @@ class CreateBillsTable extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('project_id');
-            $table->integer('yearMonth')->comment('請求書一覧から詳細表示する際に簡単に絞り込むため 2022-06');
+            $table->foreignId('project_id')->constrained();
+            $table->foreignId('user_id')->constrained();
+            $table->date('yearMonth')->comment('請求書一覧から詳細表示する際に簡単に絞り込むため 2022-06');
             $table->integer('allCost')->comment('その月の合計請求額');
-            $table->integer('allOperatingTime')->comment('その月の合計稼働時間、分単位で保存？？');
+            $table->integer('allOperatingTime')->comment('その月の合計稼働時間');
             $table->integer('allOtherCost')->comment('その月の合計経費');
             $table->boolean('sendDone')->comment('送信済みかどうか');
-            $table->string('remarks')->comment('備考？？');
+            $table->string('remarks')->comment('備考・実装は後回しだがテーブルだけ作っておく');
             $table->timestamps();
         });
     }
