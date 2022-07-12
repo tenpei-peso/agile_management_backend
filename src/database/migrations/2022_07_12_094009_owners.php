@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUnitPricesTable extends Migration
+class Owners extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateUnitPricesTable extends Migration
      */
     public function up()
     {
-        Schema::create('unit_prices', function (Blueprint $table) {
+        Schema::create('owners', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_project_id')->references('id')->on('users_projects');
-            $table->integer('price')->comment('単価');
-            $table->integer('yearMonth')->comment('どの年月の単価か');
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class CreateUnitPricesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('unit_prices');
+        Schema::dropIfExists('owners');
     }
 }
