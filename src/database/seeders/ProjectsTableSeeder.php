@@ -18,7 +18,6 @@ class ProjectsTableSeeder extends Seeder
             [
                 'owner_id' => 1,
                 'name' => '請求書システム',
-                'photo_path' => '',
                 'dead_line' => '2022-07-3',
                 'man_hour' => 50,
                 'earning' => 800000,
@@ -29,7 +28,6 @@ class ProjectsTableSeeder extends Seeder
             [
                 'owner_id' => 2,
                 'name' => 'ドローンプロジェクト',
-                'photo_path' => '',
                 'dead_line' => '2022-06-4',
                 'man_hour' => 60,
                 'earning' => 700000,
@@ -40,7 +38,6 @@ class ProjectsTableSeeder extends Seeder
             [
                 'owner_id' => 1,
                 'name' => '生協プロジェクト',
-                'photo_path' => '',
                 'dead_line' => '2022-10-3',
                 'man_hour' => 70,
                 'earning' => 600000,
@@ -51,7 +48,6 @@ class ProjectsTableSeeder extends Seeder
             [
                 'owner_id' => 3,
                 'name' => 'ちいかわ',
-                'photo_path' => '',
                 'dead_line' => '2022-2-3',
                 'man_hour' => 40,
                 'earning' => 500000,

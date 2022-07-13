@@ -1,5 +1,6 @@
 <?php
 
+use Composer\Semver\Constraint\Constraint;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,8 +16,8 @@ class CreateTimecardsTable extends Migration
     {
         Schema::create('timecards', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->comment('updateOrCreateするため2020060701など');
-            $table->foreignId('user_id');
-            $table->foreignId('project_id');
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('project_id')->constrained();
             $table->string('year_month')->comment('2022-06など');
             $table->integer('day')->comment('2など');
             $table->time('start_time')->comment('12:00など');

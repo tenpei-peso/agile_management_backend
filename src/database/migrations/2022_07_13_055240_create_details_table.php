@@ -15,8 +15,8 @@ class CreateDetailsTable extends Migration
     {
         Schema::create('details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('project_id');
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('project_id')->constrained();
             $table->string('role')->comment('役職');
             $table->integer('unit_price')->comment('単価');
             $table->integer('contract_man_hours')->comment('契約工数');
