@@ -16,7 +16,6 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->foreignId('owner_id');
-            $table->string('owner_name')->comment('取引先');
             $table->string('name')->comment('プロジェクト名');
             $table->string('photo_path')->comment('画像のパス');
             $table->date('dead_line')->comment('納期');
