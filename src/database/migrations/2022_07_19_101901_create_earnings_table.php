@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProjectUserTable extends Migration
+class CreateEarningsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateProjectUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_user', function (Blueprint $table) {
+        Schema::create('earnings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->integer('year_month')->comment('202207どの月の売り上げか');
+            $table->integer('earning')->comment('顧客から企業側にに支払われる金額');
             $table->foreignId('project_id')->constrained();
             $table->timestamps();
         });
@@ -28,6 +29,6 @@ class CreateProjectUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_user');
+        Schema::dropIfExists('earnings');
     }
 }

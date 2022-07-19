@@ -15,15 +15,17 @@ class CreateTimecardsTable extends Migration
     public function up()
     {
         Schema::create('timecards', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->comment('updateOrCreateするため2020060701など');
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('project_id')->constrained();
-            $table->string('year_month')->comment('2022-06など');
-            $table->integer('day')->comment('2など');
+            $table->id();
+            $table->integer('order')->comment('同じ日のデータが複数ある場合の区別');
+            $table->foreignId('project_user_id')->references('id')->on('projects_users');
+            $table->date('year_month_date')->comment('2022-06-21など');
+            $table->integer('year_month')->comment('202206など');
+            $table->integer('ticket_number')->comment('チケットNO');
+            $table->string('ticket_name')->comment('チケット名');
             $table->time('start_time')->comment('12:00など');
             $table->time('finish_time')->comment('12:00など');
             $table->integer('rest_time')->comment('1など');
-            $table->integer('expenses')->comment('経費');
+            $table->integer('expense')->comment('経費');
             $table->string('remark')->comment('備考');
             $table->timestamps();
         });
