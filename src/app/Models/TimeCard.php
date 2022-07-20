@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,27 +17,12 @@ class TimeCard extends Model
 
     protected $guarded = ['id'];
 
-    public function getTimeCard($user_id,$project_id)
+    public function getTimeCard($project_user_id,$year,$month)
     {
         try {
-            $timecards = $this->where('user_id',$user_id)
-                        ->where('project_id',$project_id)
-                        // ->except(['day','year_month','day'])
-                        ->get();
-            return $timecards;
-
-
-
-
-                        // ->toArray();
-
-            // $organizedTimecards = [];
-            // foreach($timecards as $timecard){
-            //     unset($timecard['year_month'],$timecard['day']);
-            //     $organizedTimecards[] = $timecard;
-            // }
-            // return $organizedTimecards;
-
+        return $this->whereYear('year_month_date',$year)
+            ->whereMonth('year_month_date',$month)
+            ->get();
                 } catch (Exception $e) {
                     Log::emergency($e->getMessage());
                     throw $e;

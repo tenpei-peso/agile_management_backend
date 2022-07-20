@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use App\Http\Controllers\TimeCardController;
 use App\Http\Controllers\userController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,4 +19,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/user_list', [userController::class, 'userList']);
 
-Route::get('/timecard/{project_id}', [TimeCardController::class, 'getTimeCard']);
+Route::get('/timecard/{project_user_id}', [TimeCardController::class, 'getTimeCard']); //   クエリでyear_month_dateを送る
