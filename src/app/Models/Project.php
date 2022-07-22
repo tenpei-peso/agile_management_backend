@@ -10,4 +10,8 @@ class Project extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    public function owner () {
+        return $this->belongsTo(Owner::class);
+    }
 }

@@ -15,7 +15,7 @@ class CreateBillsTable extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('project_user_id')->references('id')->on('projects_users');
+            $table->foreignId('project_user_id'); //連携消した
             $table->foreignId('project_id')->constrained();
             $table->string('year_month')->comment('請求書一覧から詳細表示する際に簡単に絞り込むため 2022-06');
             $table->integer('unit_price')->comment('単価');
