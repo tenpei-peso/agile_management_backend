@@ -18,7 +18,7 @@ class TimecardsTableSeeder extends Seeder
     {
         DB::table('timecards')->insert([
             [
-                'order' => 1,
+                'order' => 0,
                 'project_user_id' => 1,
                 // 'year_month' => 202207,
                 'year_month_date' => "2022-07-11",
@@ -32,7 +32,7 @@ class TimecardsTableSeeder extends Seeder
                 'remark' =>'交通費',
             ],
             [
-                'order' => 1,
+                'order' => 0,
                 'project_user_id' => 1,
                 // 'year_month' => 202207,
                 'year_month_date' => "2022-07-12",
@@ -46,9 +46,8 @@ class TimecardsTableSeeder extends Seeder
                 'remark' =>'交通費',
             ],
             [
-                'order' => 1,
+                'order' => 0,
                 'project_user_id' => 1,
-                // 'year_month' => 202207,
                 'year_month_date' => "2022-07-13",
                 // 'ticket_number' => '2',
                 'ticket_name' => 'ピロピロ実装',
@@ -60,7 +59,7 @@ class TimecardsTableSeeder extends Seeder
                 'remark' =>'交通費',
             ],
             [
-                'order' => 2,
+                'order' => 1,
                 'project_user_id' => 1,
                 // 'year_month' => 202207,
                 'year_month_date' => "2022-07-13",
@@ -74,7 +73,7 @@ class TimecardsTableSeeder extends Seeder
                 'remark' =>'交通費',
             ],
             [
-                'order' => 1,
+                'order' => 0,
                 'project_user_id' => 2,
                 // 'year_month' => 202207,
                 'year_month_date' => "2022-07-15",
@@ -88,7 +87,7 @@ class TimecardsTableSeeder extends Seeder
                 'remark' =>'交通費',
             ],
             [
-                'order' => 1,
+                'order' => 0,
                 'project_user_id' => 3,
                 // 'year_month' => 202207,
                 'year_month_date' => "2022-07-16",
@@ -116,7 +115,7 @@ class TimecardsTableSeeder extends Seeder
                 'remark' =>'交通費',
             ],
             [
-                'order' => 1,
+                'order' => 0,
                 'project_user_id' => 3,
                 // 'year_month' => 202207,
                 'year_month_date' => "2022-07-19",
@@ -130,7 +129,7 @@ class TimecardsTableSeeder extends Seeder
                 'remark' =>'交通費',
             ],
             [
-                'order' => 1,
+                'order' => 0,
                 'project_user_id' => 3,
                 // 'year_month' => 202208,
                 'year_month_date' => "2022-08-19",

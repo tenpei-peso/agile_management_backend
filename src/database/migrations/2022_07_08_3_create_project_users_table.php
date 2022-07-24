@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProjectsUsersTable extends Migration
+class CreateProjectUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateProjectsUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('projects_users', function (Blueprint $table) {
+        Schema::create('project_users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('project_id')->constrained();
@@ -35,6 +35,6 @@ class CreateProjectsUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('projects_users');
+        Schema::dropIfExists('project_users');
     }
 }

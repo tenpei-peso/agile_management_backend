@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TimeCardCreateRequest;
-use Illuminate\Http\Request;
 use App\Models\ProjectUser;
 use Exception;
 use Illuminate\Support\Facades\Log;
@@ -54,5 +53,18 @@ class ProjectUserController extends Controller
                     Log::emergency($e->getMessage());
                     return $e;
                 }
+
+            }
+
+    //ユーザープロジェクト一覧を表示
+    public function getUserProject(ProjectUser $projectUser ,$userId) {
+        try {
+            $projectListData = $projectUser->getUserProject($userId);
+            return $projectListData;
+        } catch(Exception $e) {
+            Log::info('Controllerで取得できませんでした');
+            Log::emergency($e->getMessage());
+            throw $e;
+        }
     }
 }
