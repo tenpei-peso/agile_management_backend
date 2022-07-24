@@ -20,11 +20,12 @@ class CreateTimecardsTable extends Migration
             $table->foreignId('project_user_id')->references('id')->on('projects_users');
             $table->date('year_month_date')->comment('2022-06-21など');
             // $table->integer('year_month')->comment('202206など');
-            $table->integer('ticket_number')->comment('チケットNO');
+            // $table->integer('ticket_number')->comment('チケットNO');
             $table->string('ticket_name')->comment('チケット名');
             $table->time('start_time')->comment('12:00など');
             $table->time('finish_time')->comment('12:00など');
-            $table->integer('rest_time')->comment('1など');
+            $table->integer('rest_time')->comment('分単位で保存');
+            $table->integer('operating_time')->comment('分単位で保存');
             $table->integer('expense')->comment('経費');
             $table->string('remark')->comment('備考');
             $table->timestamps();
