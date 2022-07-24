@@ -9,33 +9,48 @@ use Illuminate\Http\Request;
 use App\Models\ProjectUser;
 use Exception;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class ProjectUserController extends Controller
 {
-
     public function createOrUpdateTimecard(TimeCardCreateRequest $timecard_create_request,ProjectUser $project_user)
     {
         try {
+
+            DB::beginTransaction();
+
             $timecards_inputs = $timecard_create_request->all();
 
-            $organized_timecard_inputs =[];
-
-            //inputからidとdata_numberを削除、rest_timeを分に直す。
+            //timecardテーブルに登録処理。
             foreach($timecards_inputs as $timecards_input){
-            $rest_time_hour = (int)date("H",strtotime($timecards_input['rest_time']));
-            $rest_time_minute = (int)date("i",strtotime($timecards_input['rest_time']));
+            //rest_timeを分に直す
+            $rest_time_hour = (int) date("H",strtotime($timecards_input['rest_time']));
+            $rest_time_minute = (int) date("i",strtotime($timecards_input['rest_time']));
             $rest_time_sum = $rest_time_hour*60+$rest_time_minute;
+            //いらないデータを消す
             unset($timecards_input['rest_time'],$timecards_input['id'],$timecards_input['data_number']);
-            $timecards_input = array_merge($timecards_input,['rest_time'=>$rest_time_sum]);
-            $organized_timecard_inputs[] =$timecards_input;
+            //分に直したデータを追加
+            $organized_timecards_input = array_merge($timecards_input,['rest_time'=>$rest_time_sum]);
+            //登録処理
+            $project_user->createOrUpdateTimecard($organized_timecards_input);
         }
 
-            $project_user->createOrUpdateTimecard($organized_timecard_inputs);
-
-            
-
+            //billテーブルに登録処理
+            foreach($timecards_inputs as $timecards_input){
+            //year_monthを作成
+            $year = (string) date("Y",strtotime($timecards_input['year_month_date']));
+            $month = (string) date("m",strtotime($timecards_input['year_month_date']));
+            $year_month = $year.$month;
+            //year_monthを配列に追加
+            $organized_timecards_input = array_merge($timecards_input,['year_month'=>$year_month]);
+            //登録処理
+            $project_user->calculateAndRegisterBillByMonth($year,$month,$organized_timecards_input);
+        }
+            DB::commit();
+            return '完了しました';
 
                 } catch (Exception $e) {
+                    DB::rollback();
                     Log::emergency($e->getMessage());
                     return $e;
                 }
