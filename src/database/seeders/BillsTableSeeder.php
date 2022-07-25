@@ -43,7 +43,7 @@ class BillsTableSeeder extends Seeder
                 'month_all_cost' => 204000,
                 'month_operating_time' => 3000,
                 'month_other_cost' =>4000,
-                'send_done' => false,
+                'send_done' => true,
             ],
             [
                 'project_user_id' => 2,
