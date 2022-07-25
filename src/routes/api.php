@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\BillController;
 use App\Http\Controllers\ProjectUserController;
 use App\Http\Controllers\TimeCardController;
 use App\Http\Controllers\userController;
@@ -24,3 +25,5 @@ Route::get('/user_list', [userController::class, 'userList']);
 Route::get('/timecard/{project_id}', [TimeCardController::class, 'getTimeCard']);
 
 Route::get('/user_project_list/{user_id}', [ProjectUserController::class, 'getUserProject']);
+
+Route::get('/user_bills_list/{user_id}', [BillController::class, 'getUserBills']);
