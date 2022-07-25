@@ -17,9 +17,8 @@ class TimeCardController extends Controller
         try {
             //渡ってきたyear_monthの年と月を分離
             $year_month = $request->input('year_month');
-            $year = date('Y', strtotime($year_month));
-            $month = date('n', strtotime($year_month));
-
+            $year = (int)substr($year_month,0,4);
+            $month = (int)substr($year_month,5,6);
             $timecards_searched_by_year_month = $timecard->getTimeCard($project_user_id,$year,$month);
 
             return $timecards_searched_by_year_month;
