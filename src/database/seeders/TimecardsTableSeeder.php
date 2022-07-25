@@ -27,7 +27,7 @@ class TimecardsTableSeeder extends Seeder
                 'start_time' =>"16:00:00",
                 'finish_time' =>"21:00:00",
                 'rest_time'=>60,
-                'operating_time' =>400,
+                'operating_time' =>420,
                 'expense' =>4000,
                 'remark' =>'交通費',
             ],

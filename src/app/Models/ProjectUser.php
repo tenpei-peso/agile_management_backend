@@ -64,7 +64,7 @@ public function createOrUpdateTimecard($organized_timecards_input)
                 ->where('year_month',$organized_timecards_input['year_month'])
                 ->value('unit_price');
 
-            $month_all_cost = $unit_price * floor($all_operating_time/60) + $all_expense;
+            $month_all_cost = $unit_price * $all_operating_time / 60 + $all_expense;
 
             //登録する
             $bill_input = [
