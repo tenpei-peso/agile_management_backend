@@ -24,7 +24,7 @@ class ProjectUserController extends Controller
             foreach($timecards_inputs as $timecards_input){
             //いらないデータを消す
             unset($timecards_input['id'],$timecards_input['data_number']);
-            //登録処理
+            //タイムカード登録処理
             $project_user->createOrUpdateTimecard($timecards_input);
         }
 
