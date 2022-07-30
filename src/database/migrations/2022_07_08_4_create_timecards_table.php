@@ -23,7 +23,7 @@ class CreateTimecardsTable extends Migration
             $table->string('ticket_name')->comment('チケット名');
             $table->time('start_time')->comment('12:00など');
             $table->time('finish_time')->comment('12:00など');
-            $table->integer('rest_time')->comment('15分単位で保存');
+            $table->time('rest_time')->comment('01:15など、15分単位で保存');
             $table->integer('operating_time')->comment('15分単位で保存');
             $table->integer('expense')->comment('経費');
             $table->string('remark')->comment('備考');

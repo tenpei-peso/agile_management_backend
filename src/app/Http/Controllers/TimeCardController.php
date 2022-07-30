@@ -19,9 +19,15 @@ class TimeCardController extends Controller
             $year_month = $request->input('year_month');
             $year = (int)substr($year_month,0,4);
             $month = (int)substr($year_month,5,6);
-            $timecards_searched_by_year_month = $timecard->getTimeCard($project_user_id,$year,$month);
+            $collection_timecards_searched_by_year_month = collect($timecard->getTimeCard($project_user_id,$year,$month));
 
-            return $timecards_searched_by_year_month;
+            //expenseを文字列に変換
+            $response_timecard = $collection_timecards_searched_by_year_month->map(function($item,$key)
+            {
+                $item['expense'] = (string)$item['expense'];
+                return $item;
+            });
+            return $response_timecard->toArray();
 
                 } catch (Exception $e) {
                     Log::emergency($e->getMessage());
