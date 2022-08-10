@@ -20,6 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('base_url')->nullable()->comment('backlogのbaseURL');
+            $table->string('api_key')->nullable()->comment('backlogのapiKey');
             $table->rememberToken();
             $table->timestamps();
         });
