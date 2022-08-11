@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class Project extends Model
 {
@@ -57,7 +58,7 @@ class Project extends Model
                 $pushData = [
                     'id' => $list['id'],
                     'owner_id' => $list['owner_id'],
-                    'project_name' => $list['name'], //プロジェクト名
+                    'project_name' => $list['project_name'], //プロジェクト名
                     'dead_line' => $list['dead_line'], //納期
                     'all_operating_time' => $all_member_month_operating_time, //現状工数(月)
                     'expected_all_operating_time' =>  $list['expected_all_operating_time'],//予測工数(月)
@@ -75,6 +76,7 @@ class Project extends Model
         }
     }
 
+    //オーナープロジェクト一覧画面のユーザーの画像取得
     public function getMemberPath ($owner_id) {
         try {
             $pathData = $this->where('owner_id', $owner_id)->with(['users:photo_path'])->get();
@@ -89,6 +91,20 @@ class Project extends Model
                 $arrangeData[] = $pushData;
             };
             return $arrangeData;
+        } catch (\Exception $e) {
+            Log::emergency($e->getMessage());
+            throw $e;
+        }
+    }
+
+    //オーナープロジェクト作成
+    public function createOwnerProject ($request) {
+        try {
+            $this->create($request);
+            return [
+                'status' => 200,
+                'message' => '作成に成功しました'
+            ];
         } catch (\Exception $e) {
             Log::emergency($e->getMessage());
             throw $e;

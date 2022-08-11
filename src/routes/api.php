@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/user_list', [userController::class, 'userList']);
 Route::get('/user_data/{id}', [userController::class, 'getUserData']);
 Route::post('/setting/backlog',[userController::class, 'settingBacklog']);
 
@@ -31,3 +30,6 @@ Route::post('/update_join_project', [ProjectUserController::class, 'updateJoinPr
 
 //オーナープロジェクト一覧画面
 Route::get('/owner/get_project_list/{owner_id}', [ProjectController::class, 'getOwnerProject']);
+//オーナープロジェクト作成
+Route::post('/owner/create_project', [ProjectController::class, 'createOwnerProject']);
+
