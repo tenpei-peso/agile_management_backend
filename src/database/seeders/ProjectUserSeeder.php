@@ -60,6 +60,17 @@ class ProjectUserSeeder extends Seeder
                 'user_contract_date' => "2021-04-01",
                 'user_expired_date' => "2025-03-31",
             ],
+            [
+                'project_id' => 1,
+                'user_id' => 3,
+                'role' => 'テスト',
+                'expected_operating_time' => 200,
+                'unit_price' => 2000,
+                'bill_send_date' => 20,
+                'contract_pdf_path' => 'asdfasdf.pdf',
+                'user_contract_date' => "2021-04-01",
+                'user_expired_date' => "2025-03-31",
+            ],
         ]);
     }
 }

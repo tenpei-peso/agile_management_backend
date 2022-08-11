@@ -65,6 +65,16 @@ class BillsTableSeeder extends Seeder
                 'month_other_cost' =>4000,
                 'send_done' => false,
             ],
+            [
+                'project_user_id' => 5,
+                'project_id' => 1,
+                'year_month' => '2022-08',
+                'unit_price' => 2000,
+                'month_all_cost' => 404000,
+                'month_operating_time' => 200,
+                'month_other_cost' =>4000,
+                'send_done' => false,
+            ],
         ]);
     }
 }
