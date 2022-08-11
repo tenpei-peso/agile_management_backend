@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectUserController;
 use App\Http\Controllers\TimeCardController;
 use App\Http\Controllers\userController;
@@ -28,3 +29,5 @@ Route::get('/timecard/{project_id}', [TimeCardController::class, 'getTimeCard'])
 Route::get('/user_project_list/{user_id}', [ProjectUserController::class, 'getUserProject']);
 Route::post('/update_join_project', [ProjectUserController::class, 'updateJoinProject']);
 
+//オーナープロジェクト一覧画面
+Route::get('/owner/get_project_list/{owner_id}', [ProjectController::class, 'getOwnerProject']);
