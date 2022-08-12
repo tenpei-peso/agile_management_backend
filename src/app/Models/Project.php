@@ -86,6 +86,7 @@ class Project extends Model
 
                 $pushData = [
                     'id' => $path['id'],
+                    'user_id' => $path['users']['id'],
                     'pathData' => $path['users']
                 ];
                 $arrangeData[] = $pushData;
