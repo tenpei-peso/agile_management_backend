@@ -11,15 +11,29 @@ use Exception;
 
 class userController extends Controller
 {
-    public function userList(User $user) {
+    //backlogAPI情報を設定
+    public function settingBacklog (User $user, Request $request) {
+        $input = $request->input('id');
+        $allData = $request->all();
         try {
-            $allUser = $user->userList();
+            $allUser = $user->settingBacklog($input, $allData);
             return response()->json($allUser);
         } catch (Exception $e){
             Log::emergency($e->getMessage());
             return $e;
         }
-
-        return ;
     }
+
+    //user情報とってくる
+    public function getUserData (User $user, $id) {
+        try {
+            $user = $user->getUserData($id);
+            Log::info($user);
+            return response()->json($user);
+        } catch (Exception $e){
+            Log::emergency($e->getMessage());
+            return $e;
+        }
+    }
+
 }

@@ -19,7 +19,7 @@ class CreateTimecardsTable extends Migration
             $table->integer('order')->comment('同じ日のデータが複数ある場合の区別');
             $table->foreignId('project_user_id')->references('id')->on('project_users');
             $table->date('year_month_date')->comment('2022-06-21など');
-            // $table->integer('ticket_number')->comment('チケットNO');
+            $table->integer('ticket_number')->comment('チケットNO');
             $table->string('ticket_name')->comment('チケット名');
             $table->time('start_time')->comment('12:00など');
             $table->time('finish_time')->comment('12:00など');

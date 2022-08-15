@@ -102,6 +102,7 @@ public function createOrUpdateTimecard($organized_timecards_input)
                 };
 
                 $pushData = [
+                    'id' => $value['project']['id'],
                     'owner_name' => $value['project']['owner']['name'], //取引先
                     'name' => $value['project']['name'], //プロジェクト名
                     'unit_price' => $value['unit_price'], //単価
@@ -111,12 +112,23 @@ public function createOrUpdateTimecard($organized_timecards_input)
                     'user_expired_date' => $value['user_expired_date'], //契約終了日
                     'contract_pdf_path' => $value['contract_pdf_path'],
                     'project_user_id' => $value['id'],
+                    'join_project' => $value['join_project'] //baclogで設定中のプロジェクト
                 ];
                 $arrangeData[] = $pushData;
             }
             return $arrangeData;
         } catch(Exception $e) {
             Log::info('Modelで取得できませんでした');
+            Log::emergency($e->getMessage());
+            throw $e;
+        }
+    }
+
+    public function updateJoinProject ($id, $join_project) {
+        try {
+            $updateData = $this->where('id', $id)->update(['join_project' => $join_project]);
+            return $updateData;
+        } catch (\Exception $e) {
             Log::emergency($e->getMessage());
             throw $e;
         }
