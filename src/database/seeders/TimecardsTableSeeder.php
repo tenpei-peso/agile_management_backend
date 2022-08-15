@@ -29,6 +29,7 @@ class TimecardsTableSeeder extends Seeder
                 'rest_time'=>"01:00",
                 'operating_time' =>420,
                 'expense' =>4000,
+                'unit_price' =>2000,
                 'remark' =>'交通費',
             ],
             [
@@ -43,6 +44,7 @@ class TimecardsTableSeeder extends Seeder
                 'rest_time'=>"01:00",
                 'operating_time' =>540,
                 'expense' =>5000,
+                'unit_price' =>2000,
                 'remark' =>'交通費',
             ],
             [
@@ -56,6 +58,7 @@ class TimecardsTableSeeder extends Seeder
                 'rest_time'=>"01:00",
                 'operating_time' =>270,
                 'expense' =>4500,
+                'unit_price' =>2000,
                 'remark' =>'交通費',
             ],
             [
@@ -70,6 +73,7 @@ class TimecardsTableSeeder extends Seeder
                 'rest_time'=>"01:00",
                 'operating_time' =>270,
                 'expense' =>4500,
+                'unit_price' =>2000,
                 'remark' =>'交通費',
             ],
             [
@@ -84,6 +88,7 @@ class TimecardsTableSeeder extends Seeder
                 'rest_time'=>"01:00",
                 'operating_time' =>390,
                 'expense' =>4500,
+                'unit_price' =>2000,
                 'remark' =>'交通費',
             ],
             [
@@ -98,6 +103,7 @@ class TimecardsTableSeeder extends Seeder
                 'rest_time'=>"01:00",
                 'operating_time' =>270,
                 'expense' =>4500,
+                'unit_price' =>2000,
                 'remark' =>'交通費',
             ],
             [
@@ -112,6 +118,7 @@ class TimecardsTableSeeder extends Seeder
                 'rest_time'=>"01:00",
                 'operating_time' =>210,
                 'expense' =>3500,
+                'unit_price' =>2000,
                 'remark' =>'交通費',
             ],
             [
@@ -126,6 +133,7 @@ class TimecardsTableSeeder extends Seeder
                 'rest_time'=>"01:00",
                 'operating_time' =>210,
                 'expense' =>3500,
+                'unit_price' =>2000,
                 'remark' =>'交通費',
             ],
             [
@@ -140,6 +148,7 @@ class TimecardsTableSeeder extends Seeder
                 'rest_time'=>"01:00",
                 'operating_time' =>210,
                 'expense' =>3500,
+                'unit_price' =>2000,
                 'remark' =>'交通費',
             ],
         ]);

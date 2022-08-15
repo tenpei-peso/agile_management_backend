@@ -26,6 +26,7 @@ class CreateTimecardsTable extends Migration
             $table->time('rest_time')->comment('01:15など、15分単位で保存');
             $table->integer('operating_time')->comment('15分単位で保存');
             $table->integer('expense')->comment('経費');
+            $table->integer('unit_price')->comment('単価');
             $table->string('remark')->comment('備考');
             $table->timestamps();
         });
