@@ -15,9 +15,6 @@ class ProjectUserController extends Controller
     public function createOrUpdateTimecard(TimeCardCreateRequest $timecard_create_request,ProjectUser $project_user)
     {
         try {
-
-            DB::beginTransaction();
-
             $timecards_inputs = $timecard_create_request->all();
 
             //timecardテーブルに登録処理。
@@ -39,11 +36,9 @@ class ProjectUserController extends Controller
             //登録処理
             $project_user->calculateAndRegisterBillByMonth($year,$month,$organized_timecards_input);
         }
-            DB::commit();
             return '完了しました';
 
                 } catch (Exception $e) {
-                    DB::rollback();
                     Log::emergency($e->getMessage());
                     return $e;
                 }

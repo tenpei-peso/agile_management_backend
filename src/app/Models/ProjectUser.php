@@ -58,19 +58,16 @@ public function createOrUpdateTimecard($organized_timecards_input)
             //billテーブルの情報を算出
             $all_operating_time = $query->sum('operating_time');
             $all_expense = $query->sum('expense');
-
-            $unit_price = $this->find($organized_timecards_input['project_user_id'])
-                ->bills()
-                ->where('year_month',$organized_timecards_input['year_month'])
-                ->value('unit_price');
-
-            $month_all_cost = $unit_price * $all_operating_time / 60 + $all_expense;
+            $month_all_cost = $organized_timecards_input['unit_price'] * $all_operating_time / 60 + $all_expense;
 
             //登録する
             $bill_input = [
+                'project_user_id' => $organized_timecards_input['project_user_id'],
+                'project_id' => $this->find($organized_timecards_input['project_user_id'])->project_id,
+                'year_month' => $organized_timecards_input['year_month'],
+                'month_all_cost' => $month_all_cost,
                 'month_operating_time' => $all_operating_time,
                 'month_other_cost' => $all_expense,
-                'month_all_cost' => $month_all_cost
             ];
 
             $this->find($organized_timecards_input['project_user_id'])
