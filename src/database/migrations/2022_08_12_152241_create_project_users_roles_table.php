@@ -15,7 +15,7 @@ class CreateProjectUsersRolesTable extends Migration
     {
         Schema::create('project_users_roles', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('project_users_id');
+            $table->foreignId('project_user_id');
             $table->foreignId('role_id');
             $table->timestamps();
         });

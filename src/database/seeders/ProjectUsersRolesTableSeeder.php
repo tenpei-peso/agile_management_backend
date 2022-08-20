@@ -16,23 +16,23 @@ class ProjectUsersRolesTableSeeder extends Seeder
     {
         DB::table('project_users_roles')->insert([
             [
-                'project_users_id' => 1,
+                'project_user_id' => 1,
                 'role_id' => 1,
             ],
             [
-                'project_users_id' => 1,
+                'project_user_id' => 1,
                 'role_id' => 2,
             ],
             [
-                'project_users_id' => 2,
+                'project_user_id' => 2,
                 'role_id' => 3,
             ],
             [
-                'project_users_id' => 3,
+                'project_user_id' => 3,
                 'role_id' => 4,
             ],
             [
-                'project_users_id' => 3,
+                'project_user_id' => 3,
                 'role_id' => 3,
             ],
             
