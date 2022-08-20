@@ -30,16 +30,16 @@ class TimeCardCreateRequest extends FormRequest
         return [
             '*.id' => ['required', 'integer'],
             '*.order' => ['required', 'integer'],
-            '*.ticket' => ['string'],
+            '*.ticket' => ['integer'],
             '*.start_time' =>['required', 'date_format:H:i'],
             '*.finish_time' =>['required', 'date_format:H:i'],
             '*.rest_time' => ['required', 'date_format:H:i'],
-            '*.operating_time'=> ['required', 'integer'],
+            '*.working_time'=> ['required', 'integer'],
             '*.expense'=> ['required', 'integer'],
             '*.unit_price'=> ['required', 'integer'],
             '*.remark'=> ['required', 'string'],
             '*.project_user_id' => ['required', 'integer'],
-            '*.year_month_date' => ['required', 'date_format:Y-m-d'],
+            '*.year_month_day' => ['required', 'date_format:Y-m-d'],
             '*.data_number' => ['required'],
         ];
     }

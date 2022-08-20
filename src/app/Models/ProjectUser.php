@@ -36,7 +36,7 @@ public function createOrUpdateTimecard($organized_timecards_input)
         try {
                 $this->find($organized_timecards_input['project_user_id'])
                     ->timecards()
-                    ->where('year_month_date',$organized_timecards_input['year_month_date'])
+                    ->where('year_month_day',$organized_timecards_input['year_month_day'])
                     ->updateOrCreate(['order' => $organized_timecards_input['order']],$organized_timecards_input);
 
                 } catch (Exception $e) {
@@ -51,14 +51,14 @@ public function createOrUpdateTimecard($organized_timecards_input)
             //プロジェクトとユーザー、年月で絞ったクエリ
             $query = $this->find($organized_timecards_input['project_user_id'])
                 ->timecards()
-                ->whereYear('year_month_date',$year)
-                ->whereMonth('year_month_date',$month)
+                ->whereYear('year_month_day',$year)
+                ->whereMonth('year_month_day',$month)
                 ->get();
 
             //billテーブルの情報を算出
-            $all_operating_time = $query->sum('operating_time');
+            $all_working_time = $query->sum('working_time');
             $all_expense = $query->sum('expense');
-            $month_all_cost = $organized_timecards_input['unit_price'] * $all_operating_time / 60 + $all_expense;
+            $month_all_cost = $organized_timecards_input['unit_price'] * $all_working_time / 60 + $all_expense;
 
             //登録する
             $bill_input = [
@@ -66,7 +66,7 @@ public function createOrUpdateTimecard($organized_timecards_input)
                 'project_id' => $this->find($organized_timecards_input['project_user_id'])->project_id,
                 'year_month' => $organized_timecards_input['year_month'],
                 'month_all_cost' => $month_all_cost,
-                'month_operating_time' => $all_operating_time,
+                'month_working_time' => $all_working_time,
                 'month_other_cost' => $all_expense,
             ];
 
@@ -95,10 +95,10 @@ public function createOrUpdateTimecard($organized_timecards_input)
                     $allCost += $bill['month_all_cost'];
                     $allOtherCost += $bill['month_other_cost'];
                 };
-                //billのmonth_operating_timeの合計
-                $operatingTime = 0;
+                //billのmonth_working_timeの合計
+                $workingTime = 0;
                 foreach ($value['bills'] as $key => $bill) {
-                    $operatingTime += $bill['month_operating_time'];
+                    $workingTime += $bill['month_working_time'];
                 };
 
                 $pushData = [
@@ -106,7 +106,7 @@ public function createOrUpdateTimecard($organized_timecards_input)
                     'owner_name' => $value['project']['owner']['name'], //取引先
                     'name' => $value['project']['name'], //プロジェクト名
                     'unit_price' => $value['unit_price'], //単価
-                    'month_operating_time' =>  $operatingTime, //稼働時間(合計)
+                    'month_working_time' =>  $workingTime, //稼働時間(合計)
                     'all_cost' => $allCost + $allOtherCost, //請求金額(合計)
                     'bill_send_date' => $value['bill_send_date'], //請求書送付日
                     'user_expired_date' => $value['user_expired_date'], //契約終了日

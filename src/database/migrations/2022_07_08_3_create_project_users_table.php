@@ -18,7 +18,7 @@ class CreateProjectUsersTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('project_id')->constrained();
             $table->string('role')->comment('ポジション');
-            $table->integer('expected_operating_time')->comment('プロジェクトにおける任意のエンジニアの予定工数');
+            $table->integer('expected_working_time')->comment('プロジェクトにおける任意のエンジニアの予定工数');
             $table->integer('unit_price')->comment('単価');
             $table->integer('bill_send_date')->comment('請求書送付日');
             $table->string('contract_pdf_path')->comment('契約書のpath');

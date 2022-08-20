@@ -28,8 +28,8 @@ class ProjectUserController extends Controller
             //billテーブルに登録処理
             foreach($timecards_inputs as $timecards_input){
             //year_monthを作成
-            $year = (string) date("Y",strtotime($timecards_input['year_month_date']));
-            $month = (string) date("m",strtotime($timecards_input['year_month_date']));
+            $year = (string) date("Y",strtotime($timecards_input['year_month_day']));
+            $month = (string) date("m",strtotime($timecards_input['year_month_day']));
             $year_month = $year.$month;
             //year_monthを配列に追加
             $organized_timecards_input = array_merge($timecards_input,['year_month'=>$year_month]);
