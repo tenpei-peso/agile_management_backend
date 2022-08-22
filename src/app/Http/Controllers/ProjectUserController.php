@@ -40,8 +40,11 @@ class ProjectUserController extends Controller
         try {
             //メンバー構成部分取得
             $memberStructure = $category->getMemberStructure($project_id);
+
+            //メンバ表示画面
+            $memberData = $projectUser->getMemberData($project_id);
             
-            return $memberStructure;
+            return [$memberStructure, $memberData];
         } catch(Exception $e) {
             Log::info('Controllerで取得できませんでした');
             Log::emergency($e->getMessage());
