@@ -15,7 +15,7 @@ class CreateEarningsTable extends Migration
     {
         Schema::create('earnings', function (Blueprint $table) {
             $table->id();
-            $table->integer('year_month')->comment('202207どの月の売り上げか');
+            $table->string('year_month')->comment('202207どの月の売り上げか');
             $table->integer('earning')->comment('顧客から企業側にに支払われる金額');
             $table->foreignId('project_id')->constrained();
             $table->timestamps();

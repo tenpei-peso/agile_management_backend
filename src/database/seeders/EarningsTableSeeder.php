@@ -16,22 +16,22 @@ class EarningsTableSeeder extends Seeder
     {
         DB::table('earnings')->insert([
             [
-                'year_month' => 202209,
+                'year_month' => '2022-08',
                 'earning' => 2000000,
                 'project_id' =>1,
             ],
             [
-                'year_month' => 202209,
+                'year_month' => '2022-08',
                 'earning' => 5000000,
                 'project_id' =>3,
             ],
             [
-                'year_month' => 202210,
+                'year_month' => '2022-08',
                 'earning' => 3000000,
                 'project_id' =>2,
             ],
             [
-                'year_month' => 202210,
+                'year_month' => '2022-09',
                 'earning' => 3000000,
                 'project_id' =>2,
             ],

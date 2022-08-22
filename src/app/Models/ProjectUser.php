@@ -91,6 +91,7 @@ class ProjectUser extends Model
                     "unit_price" => $member['unit_price'],
                     "expected_operating_time" => $member['expected_operating_time'],
                     "month_operating_time" => $month_operating_time,
+                    "user_contract_date" => $member['user_contract_date'],
                     "user_expired_date" => $member['user_expired_date'],
                     "contract_pdf_path" => $member['contract_pdf_path']
                 ];
