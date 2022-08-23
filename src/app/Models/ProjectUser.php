@@ -104,6 +104,19 @@ class ProjectUser extends Model
         }
     }
 
+    //オーナーメンバー管理画面 編集
+    public function updateOwnerMemberManagement ($request, $id) {
+        unset($request['project_user_id']);
+        unset($request['role']);
+        unset($request['category_id']);
+        try {
+            $this->where('id', $id)->update($request);
+        } catch (\Exception $e) {
+            Log::emergency($e->getMessage());
+            throw $e;
+        }
+    }
+
     //backlog
     public function updateJoinProject ($id, $join_project) {
         try {

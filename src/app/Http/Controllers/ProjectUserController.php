@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Project\Membermanagement;
 use App\Models\Category;
 use App\Models\ProjectUser;
+use App\Models\Role;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class ProjectUserController extends Controller
@@ -53,5 +56,30 @@ class ProjectUserController extends Controller
     }
 
     //オーナーメンバー管理画面 編集
-    
+    public function updateOwnerMemberManagement (ProjectUser $projectUser, Role $role, Membermanagement $request) {
+        $project_user_id = $request->input('project_user_id');
+        $roleData = $request->input('role');
+        $categoryId = $request->input('category_id');
+        DB::beginTransaction();
+        try {
+            //編集
+            $updatedData = $projectUser->updateOwnerMemberManagement($request->all(), $project_user_id);
+            Log::info('編集が成功しました。');
+
+            //roleテーブル作成、project_users_rolesテーブル作成
+            $createOrUpdateRole = $role->createOrUpdateRoleData($project_user_id, $roleData, $categoryId);
+            Log::info('role作成が成功しました。');
+
+            DB::commit();
+            return response()->json([
+                'status' => 200,
+                'message' => '編集に成功しました。'
+            ]);
+        } catch(Exception $e) {
+            DB::rollBack();
+            Log::info('Controllerで取得できませんでした');
+            Log::emergency($e->getMessage());
+            throw $e;
+        }
+    }
 }

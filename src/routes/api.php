@@ -24,6 +24,7 @@ Route::get('/user_data/{id}', [userController::class, 'getUserData']);
 Route::post('/setting/backlog',[userController::class, 'settingBacklog']);
 
 Route::get('/timecard/{project_id}', [TimeCardController::class, 'getTimeCard']);
+
 //ユーザー プロジェクト一覧を表示
 Route::get('/user_project_list/{user_id}', [ProjectUserController::class, 'getUserProject']);
 //チケットAPI 参加プロジェクト選択
@@ -31,6 +32,7 @@ Route::post('/update_join_project', [ProjectUserController::class, 'updateJoinPr
 //オーナー メンバー管理画面取得
 Route::get('/owner/get_member_management/{project_id}', [ProjectUserController::class, 'getOwnerMemberManagement']);
 //オーナー メンバー管理画面 編集
+Route::post('/owner/update_member_management', [ProjectUserController::class, 'updateOwnerMemberManagement']);
 
 
 //オーナー プロジェクト一覧画面
