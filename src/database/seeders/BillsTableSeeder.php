@@ -65,7 +65,7 @@ class BillsTableSeeder extends Seeder
             [
                 'project_user_id' => 5,
                 'project_id' => 1,
-                'year_month' => '2022-08',
+                'year_month' => '202208',
                 'month_all_cost' => 404000,
                 'month_working_time' => 200,
                 'month_other_cost' =>4000,

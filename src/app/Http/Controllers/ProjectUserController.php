@@ -16,7 +16,8 @@ class ProjectUserController extends Controller
     {
         try {
             $timecards_inputs = $timecard_create_request->all();
-
+            Log::info('渡ってきたタイムカード↓');
+            Log::info($timecards_inputs);
             //timecardテーブルに登録処理。
             foreach($timecards_inputs as $timecards_input){
             //いらないデータを消す
