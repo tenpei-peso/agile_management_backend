@@ -19,7 +19,6 @@ class Role extends Model
 
     public function createOrUpdateRoleData ($project_user_id, $roleData, $category_id) {
         try {
-            if (isset($roleData)) {
                 $role_ids = [];
                 foreach ($roleData as $key => $role) {
                     $roleId = $this->updateOrCreate(
@@ -32,7 +31,6 @@ class Role extends Model
                 }
                 $project_user = ProjectUser::find($project_user_id);
                 $project_user->roles()->syncWithoutDetaching($role_ids);
-            }
             return '成功しました';
         } catch (\Exception $e) {
             Log::emergency($e->getMessage());
