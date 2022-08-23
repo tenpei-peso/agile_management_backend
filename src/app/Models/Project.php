@@ -110,4 +110,19 @@ class Project extends Model
             throw $e;
         }
     }
+
+    //オーナープロジェクト編集
+    public function updateOwnerProject ($request, $projectId) {
+        unset($request['project_id']);
+        try {
+            $this->where('id', $projectId)->update($request);
+            return [
+                'status' => 200,
+                'message' => '編集に成功しました'
+            ];
+        } catch (\Exception $e) {
+            Log::emergency($e->getMessage());
+            throw $e;
+        }
+    }
 }

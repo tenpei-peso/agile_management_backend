@@ -36,4 +36,22 @@ class ProjectController extends Controller
             throw $e;
         }
     }
+
+    //オーナーのプロジェクト編集
+    public function updateOwnerProject (Project $project, CreateProject $request) {
+        $projectId = $request->input('project_id');
+        try {
+            //プロジェクト編集
+            $project->updateOwnerProject($request->all(), $projectId);
+
+            return response()->json([
+                'status' => 200,
+                'message' => '編集に成功しました。'
+            ]);
+        } catch(\Exception $e) {
+            Log::info('Controllerで取得できませんでした');
+            Log::emergency($e->getMessage());
+            throw $e;
+        }
+    }
 }
