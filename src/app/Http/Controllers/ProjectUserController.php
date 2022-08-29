@@ -18,22 +18,33 @@ class ProjectUserController extends Controller
             $timecards_inputs = $timecard_create_request->all();
             Log::info('渡ってきたタイムカード↓');
             Log::info($timecards_inputs);
+
+            $collection_timecards_inputs = collect($timecards_inputs);
+            //いらないデータ削除、unit_priceをintegerに変換
+            $collection_timecards_inputs = $collection_timecards_inputs->map(function ($item,$key)
+            {
+                unset($item['id'],$item['data_number']);
+                $item['unit_price'] = (int) $item['unit_price'];
+                return $item;
+            });
+            $organized_timecards_inputs = $collection_timecards_inputs->toArray();
+            Log::info('整形したタイムカード↓');
+            Log::info($organized_timecards_inputs);
+
             //timecardテーブルに登録処理。
-            foreach($timecards_inputs as $timecards_input){
-            //いらないデータを消す
-            unset($timecards_input['id'],$timecards_input['data_number']);
+            foreach($organized_timecards_inputs as $organized_timecards_input){
             //タイムカード登録処理
-            $project_user->createOrUpdateTimecard($timecards_input);
+            $project_user->createOrUpdateTimecard($organized_timecards_input);
         }
 
             //billテーブルに登録処理
-            foreach($timecards_inputs as $timecards_input){
+            foreach($organized_timecards_inputs as $organized_timecards_input){
             //year_monthを作成
-            $year = (string) date("Y",strtotime($timecards_input['year_month_day']));
-            $month = (string) date("m",strtotime($timecards_input['year_month_day']));
+            $year = (string) date("Y",strtotime($organized_timecards_input['year_month_day']));
+            $month = (string) date("m",strtotime($organized_timecards_input['year_month_day']));
             $year_month = $year.$month;
             //year_monthを配列に追加
-            $organized_timecards_input = array_merge($timecards_input,['year_month'=>$year_month]);
+            $organized_timecards_input = array_merge($organized_timecards_input,['year_month'=>$year_month]);
             //登録処理
             $project_user->calculateAndRegisterBillByMonth($year,$month,$organized_timecards_input);
         }
