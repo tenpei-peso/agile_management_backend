@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,7 +16,7 @@ class Project extends Model
 
     protected $guarded = ['id'];
 
-    public function owner () {
+    public function owner() {
         return $this->belongsTo(Owner::class);
     }
 
@@ -28,7 +30,7 @@ class Project extends Model
 
     //オーナーのプロジェクト一覧画面表示
     public function getOwnerProject ($owner_id) {
-    
+
         try {
             //現在の月の請求書のデータとってくる
             $projectListData = $this->where('owner_id', $owner_id)
@@ -45,14 +47,14 @@ class Project extends Model
                 //全メンバーの今月の稼働時間*単価＊経費
                 $all_member_month_all_cost = 0;
                 //全メンバーの今月の稼働時間
-                $all_member_month_operating_time = 0;
+                $all_member_month_working_time = 0;
                 foreach ($list['bills'] as $key => $bill) {
                     if(empty($bill)) {
                         $all_member_month_all_cost = 0;
-                        $all_member_month_operating_time = 0;
+                        $all_member_month_working_time = 0;
                     } else {
                         $all_member_month_all_cost += $bill['month_all_cost'];
-                        $all_member_month_operating_time +=  $bill['month_operating_time'];
+                        $all_member_month_working_time +=  $bill['month_working__time'];
                     }
                 };
                 $pushData = [
@@ -60,8 +62,8 @@ class Project extends Model
                     'owner_id' => $list['owner_id'],
                     'project_name' => $list['project_name'], //プロジェクト名
                     'dead_line' => $list['dead_line'], //納期
-                    'all_operating_time' => $all_member_month_operating_time, //現状工数(月)
-                    'expected_all_operating_time' =>  $list['expected_all_operating_time'],//予測工数(月)
+                    'all_working_time' => $all_member_month_working_time, //現状工数(月)
+                    'expected_all_working_time' =>  $list['expected_all_working_time'],//予測工数(月)
                     'earning' => $list['earning'], //最新売上（月）
                     'all_cost' => $all_member_month_all_cost, //最新経費（月）
                     'contract_expired_date' => $list['contract_expired_date'], //契約更新日

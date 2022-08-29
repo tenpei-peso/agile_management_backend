@@ -22,6 +22,8 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'base_url' =>'molasoft.backlog.com',
+            'api_key' =>'RN7dNxXBEAL69Vc1urcJLSabdYXKplWHLLtsxn3xs4WeIDZOBdWFog1I9Fw0VfrE',
             'remember_token' => Str::random(10),
         ];
     }

@@ -1,25 +1,87 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Exception;
 use Illuminate\Support\Facades\Log;
 
 class ProjectUser extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
 
-    public function project () {
-        return $this->belongsTo(Project::class);
+protected $guarded = ['id'];
+
+// protected $table = 'project_users';
+
+public function timecards()
+{
+    return $this->hasMany(TimeCard::class,'project_user_id','id');
+}
+
+public function bills()
+{
+    return $this->hasMany(Bill::class,'project_user_id','id');
+}
+
+public function project() {
+    return $this->belongsTo(Project::class);
+}
+
+public function createOrUpdateTimecard($organized_timecards_input)
+    {
+        try {
+                $this->find($organized_timecards_input['project_user_id'])
+                    ->timecards()
+                    ->where('year_month_day',$organized_timecards_input['year_month_day'])
+                    ->updateOrCreate(['order' => $organized_timecards_input['order']],$organized_timecards_input);
+
+                } catch (Exception $e) {
+                    Log::emergency($e->getMessage());
+                    throw $e;
+                }
     }
-    public function bills () {
-        return $this->hasMany(Bill::class);
-    }
+
+    public function calculateAndRegisterBillByMonth($year,$month,$organized_timecards_input)
+    {
+        try {
+            //プロジェクトとユーザー、年月で絞ったクエリ
+            $query = $this->find($organized_timecards_input['project_user_id'])
+                ->timecards()
+                ->whereYear('year_month_day',$year)
+                ->whereMonth('year_month_day',$month)
+                ->get();
+
+            //billテーブルの情報を算出
+            $all_working_time = $query->sum('working_time');
+            $all_expense = $query->sum('expense');
+            $month_all_cost = $organized_timecards_input['unit_price'] * $all_working_time / 60 + $all_expense;
+
+            //登録する
+            $bill_input = [
+                'project_user_id' => $organized_timecards_input['project_user_id'],
+                'project_id' => $this->find($organized_timecards_input['project_user_id'])->project_id,
+                'year_month' => $organized_timecards_input['year_month'],
+                'month_all_cost' => $month_all_cost,
+                'month_working_time' => $all_working_time,
+                'month_other_cost' => $all_expense,
+            ];
+
+            $this->find($organized_timecards_input['project_user_id'])
+                ->bills()
+                ->updateOrCreate(['year_month' => $organized_timecards_input['year_month']],$bill_input);
+
+                } catch (Exception $e) {
+                    Log::emergency($e->getMessage());
+                    throw $e;
+                }
+            }
 
     //userProject一覧表示
-    public function getUserProject ($userId) {
+    public function getUserProject($userId) {
         try {
             $data = $this->where('user_id', $userId)->with('project.owner', 'bills')->get();
             $arrangeData = [];
@@ -33,10 +95,10 @@ class ProjectUser extends Model
                     $allCost += $bill['month_all_cost'];
                     $allOtherCost += $bill['month_other_cost'];
                 };
-                //billのmonth_operating_timeの合計
-                $operatingTime = 0;
+                //billのmonth_working_timeの合計
+                $workingTime = 0;
                 foreach ($value['bills'] as $key => $bill) {
-                    $operatingTime += $bill['month_operating_time'];
+                    $workingTime += $bill['month_working_time'];
                 };
 
                 $pushData = [
@@ -44,7 +106,7 @@ class ProjectUser extends Model
                     'owner_name' => $value['project']['owner']['name'], //取引先
                     'name' => $value['project']['name'], //プロジェクト名
                     'unit_price' => $value['unit_price'], //単価
-                    'month_operating_time' =>  $operatingTime,//稼働時間(合計)
+                    'month_working_time' =>  $workingTime, //稼働時間(合計)
                     'all_cost' => $allCost + $allOtherCost, //請求金額(合計)
                     'bill_send_date' => $value['bill_send_date'], //請求書送付日
                     'user_expired_date' => $value['user_expired_date'], //契約終了日
@@ -55,7 +117,7 @@ class ProjectUser extends Model
                 $arrangeData[] = $pushData;
             }
             return $arrangeData;
-        } catch(\Exception $e) {
+        } catch(Exception $e) {
             Log::info('Modelで取得できませんでした');
             Log::emergency($e->getMessage());
             throw $e;

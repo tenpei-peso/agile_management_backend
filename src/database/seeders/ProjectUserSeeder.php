@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -19,7 +21,7 @@ class ProjectUserSeeder extends Seeder
                 'project_id' => 1,
                 'user_id' => 1,
                 'role' => 'テスト',
-                'expected_operating_time' => 500,
+                'expected_working_time' => 500,
                 'unit_price' => 3000,
                 'bill_send_date' => 20,
                 'contract_pdf_path' => 'asdfasdf.pdf',
@@ -31,7 +33,7 @@ class ProjectUserSeeder extends Seeder
                 'project_id' => 2,
                 'user_id' => 1,
                 'role' => 'テスト',
-                'expected_operating_time' => 600,
+                'expected_working_time' => 600,
                 'unit_price' => 4000,
                 'bill_send_date' => 10,
                 'contract_pdf_path' => 'asdfasdf.pdf',
@@ -42,7 +44,7 @@ class ProjectUserSeeder extends Seeder
                 'project_id' => 1,
                 'user_id' => 2,
                 'role' => 'テスト',
-                'expected_operating_time' => 200,
+                'expected_working_time' => 200,
                 'unit_price' => 2000,
                 'bill_send_date' => 20,
                 'contract_pdf_path' => 'asdfasdf.pdf',
@@ -53,7 +55,7 @@ class ProjectUserSeeder extends Seeder
                 'project_id' => 4,
                 'user_id' => 1,
                 'role' => 'テスト',
-                'expected_operating_time' => 100,
+                'expected_working_time' => 100,
                 'unit_price' => 5000,
                 'bill_send_date' => 20,
                 'contract_pdf_path' => 'asdfasdf.pdf',
@@ -64,7 +66,7 @@ class ProjectUserSeeder extends Seeder
                 'project_id' => 1,
                 'user_id' => 3,
                 'role' => 'テスト',
-                'expected_operating_time' => 200,
+                'expected_working_time' => 200,
                 'unit_price' => 2000,
                 'bill_send_date' => 20,
                 'contract_pdf_path' => 'asdfasdf.pdf',
