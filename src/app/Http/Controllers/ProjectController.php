@@ -19,8 +19,7 @@ class ProjectController extends Controller
             //メンバーの画像とってくる
             $memberPath = $project->getMemberPath($owner_id);
 
-            // return [$projectListData, $memberPath];
-            return $projectListData;
+            return [$memberPath, $projectListData];
         } catch(\Exception $e) {
             Log::info('Controllerで取得できませんでした');
             Log::emergency($e->getMessage());
@@ -29,24 +28,14 @@ class ProjectController extends Controller
     }
 
     //オーナーのプロジェクト作成
-    public function createOwnerProject (Project $project, Earning $earning, CreateProject $request) {
-        $earningData = $request->input('earning');
-        $year_month = $request->input('earning_year_month');
-
-        DB::beginTransaction();
+    public function createOwnerProject (Project $project, CreateProject $request) {
         try {
             //プロジェクト作成
             $projectId = $project->createOwnerProject($request->all());
             Log::info('プロジェクト作成に成功しました。');
 
-            //earningsに売り上げデータ入れる
-            $earning->createEarningData($projectId, $earningData, $year_month);
-            Log::info('売り上げ作成に成功しました。');
-
-            DB::commit();
             return $projectId;
         } catch(\Exception $e) {
-            DB::rollBack();
             Log::info('Controllerで取得できませんでした');
             Log::emergency($e->getMessage());
             throw $e;

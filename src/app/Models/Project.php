@@ -23,30 +23,16 @@ class Project extends Model
         return $this->hasMany(Bill::class);
     }
 
-    public function earnings () {
-        return $this->hasMany(Earning::class);
-    }
-
     public function users () {
         return $this->belongsToMany(User::class, 'project_users');
     }
 
     //オーナーのプロジェクト一覧画面表示
     public function getOwnerProject ($owner_id) {
-    
         try {
             //現在の月の請求書のデータとってくる
             $projectListData = $this->where('owner_id', $owner_id)
             ->with(['bills' => function($query) {
-                //現在の月とってくる
-                $date = Carbon::parse('now');
-                $nowYearMonth = $date->format('Y-m');
-                $query->where('year_month', $nowYearMonth);
-            }])->get();
-
-            //今月の売り上げ取ってくる
-            $earningsData = $this->where('owner_id', $owner_id)
-            ->with(['earnings' => function($query) {
                 //現在の月とってくる
                 $date = Carbon::parse('now');
                 $nowYearMonth = $date->format('Y-m');
@@ -70,18 +56,6 @@ class Project extends Model
                     }
                 };
 
-                //売り上げのデータ
-                $earningArray = [];
-                foreach ($earningsData as $key => $earning) {
-                    if($earning['id'] == $list['id']) {
-                        $keyData = [
-                            "earning" => $earning['earnings'][0]['earning'],
-                            "year_month" => $earning['earnings'][0]['year_month']
-                        ];
-                    }
-                    $earningArray[] = $keyData;
-                }
-
                 $pushData = [
                     'id' => $list['id'],
                     'owner_id' => $list['owner_id'],
@@ -89,8 +63,8 @@ class Project extends Model
                     'dead_line' => $list['dead_line'], //納期
                     'all_operating_time' => $all_member_month_operating_time, //現状工数(月)
                     'expected_all_operating_time' =>  $list['expected_all_operating_time'],//予測工数(月)
-                    'earning' => $earningArray[$key]['earning'], //最新売上（月）
-                    'earning_year_month' => $earningArray[$key]['year_month'], //最新売上（月）の年月
+                    'earning' => $list['earning'], //最新売上（月）
+                    'earning_year_month' => $list['earning_year_month'], //最新売上（月）の年月
                     'all_cost' => $all_member_month_all_cost, //最新経費（月）
                     'contract_expired_date' => $list['contract_expired_date'], //契約更新日
                     'remark' => $list['remark'], //課題
@@ -128,8 +102,7 @@ class Project extends Model
     public function createOwnerProject ($request) {
         try {
             $createData = $this->create($request);
-            $getProjectId = $createData->id;
-            return $getProjectId;
+            return $createData;
         } catch (\Exception $e) {
             Log::emergency($e->getMessage());
             throw $e;
