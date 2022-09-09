@@ -102,7 +102,10 @@ class Project extends Model
     public function createOwnerProject ($request) {
         try {
             $createData = $this->create($request);
-            return $createData;
+            return [
+                "status" => 200,
+                "message" => "作成に成功しました"
+            ];
         } catch (\Exception $e) {
             Log::emergency($e->getMessage());
             throw $e;

@@ -32,7 +32,6 @@ class ProjectController extends Controller
         try {
             //プロジェクト作成
             $projectId = $project->createOwnerProject($request->all());
-            Log::info('プロジェクト作成に成功しました。');
 
             return $projectId;
         } catch(\Exception $e) {
