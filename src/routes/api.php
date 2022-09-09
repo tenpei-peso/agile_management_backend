@@ -39,3 +39,5 @@ Route::post('/owner/update_member_management', [ProjectUserController::class, 'u
 Route::get('/owner/get_project_list/{owner_id}', [ProjectController::class, 'getOwnerProject']);
 //オーナー プロジェクト作成
 Route::post('/owner/create_project', [ProjectController::class, 'createOwnerProject']);
+//オーナープロジェクト編集
+Route::post('/owner/update_project', [ProjectController::class, 'updateOwnerProject']);

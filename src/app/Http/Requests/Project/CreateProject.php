@@ -29,9 +29,9 @@ class CreateProject extends FormRequest
             'owner_id' => ['required', 'integer'],
             'project_name' => ['required', 'string'],
             'dead_line' => ['required', 'date'],
-            'expected_all_operating_time' => ['required', 'integer'],
-            'earning' => ['integer'],
-            'earning_year_month' => ['date'],
+            'expected_all_operating_time' => ['required', 'integer'],            
+            'earning' => ['required', 'integer'],
+            'earning_year_month' => ['required', 'date'],
             'contract_expired_date' => ['required', 'date'],
             'remark' => ['string', 'max:255'],
         ];
@@ -44,7 +44,7 @@ class CreateProject extends FormRequest
             'integer' => ':attributeを正しく入力してください。',
             'string' => ':attributeを正しく入力してください。',
             'max' => ':attributeは:max文字以内で入力してください。',
-            'date' => ':attributeは日付で入力してください',
+            'date' => ':attributeは日付で入力してください。',
         ];
     }
 
@@ -56,7 +56,7 @@ class CreateProject extends FormRequest
             'dead_line'    => '納期',
             'expected_all_operating_time'    => '１ヶ月の予測工数',
             'earning'    => '１ヶ月の売上',
-            'earning_year_month'    => '売り上げの振り込み日',
+            'earning_year_month'    => '振り込み予定日',
             'contract_expired_date'    => '契約更新日',
             'remark'    => '課題',
         ];
