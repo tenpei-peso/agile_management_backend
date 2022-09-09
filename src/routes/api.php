@@ -32,4 +32,7 @@ Route::post('/update_join_project', [ProjectUserController::class, 'updateJoinPr
 Route::get('/owner/get_project_list/{owner_id}', [ProjectController::class, 'getOwnerProject']);
 //オーナープロジェクト作成
 Route::post('/owner/create_project', [ProjectController::class, 'createOwnerProject']);
+//オーナープロジェクト編集
+Route::post('/owner/update_project', [ProjectController::class, 'updateOwnerProject']);
+
 
