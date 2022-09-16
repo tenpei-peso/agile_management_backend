@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Project\CreateProject;
+use App\Models\Earning;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class ProjectController extends Controller
@@ -17,7 +19,7 @@ class ProjectController extends Controller
             //メンバーの画像とってくる
             $memberPath = $project->getMemberPath($owner_id);
 
-            return [$projectListData, $memberPath];
+            return [$memberPath, $projectListData];
         } catch(\Exception $e) {
             Log::info('Controllerで取得できませんでした');
             Log::emergency($e->getMessage());
@@ -28,8 +30,10 @@ class ProjectController extends Controller
     //オーナーのプロジェクト作成
     public function createOwnerProject (Project $project, CreateProject $request) {
         try {
-            $response = $project->createOwnerProject($request->all());
-            return $response;
+            //プロジェクト作成
+            $projectId = $project->createOwnerProject($request->all());
+
+            return $projectId;
         } catch(\Exception $e) {
             Log::info('Controllerで取得できませんでした');
             Log::emergency($e->getMessage());

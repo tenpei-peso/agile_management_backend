@@ -6,7 +6,8 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class CreateProject extends FormRequest
+class Membermanagement extends FormRequest
+
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,18 +24,17 @@ class CreateProject extends FormRequest
      *
      * @return array
      */
+    
     public function rules()
     {
-        return [
-            'owner_id' => ['required', 'integer'],
-            'project_name' => ['required', 'string'],
-            'dead_line' => ['required', 'date'],
-            'expected_all_operating_time' => ['required', 'integer'],            
-            'earning' => ['required', 'integer'],
-            'earning_year_month' => ['required', 'date'],
-            'contract_expired_date' => ['required', 'date'],
-            'remark' => ['string', 'max:255'],
-        ];
+            return [
+                'role' => ['array'],
+                'unit_price' => ['integer'],
+                'expected_operating_time' => ['integer'],
+                'bill_send_date' => ['integer'],
+                'user_contract_date' => ['date'],
+                'user_expired_date' => ['date'],
+            ];
     }
 
     public function messages()
@@ -43,22 +43,20 @@ class CreateProject extends FormRequest
             'required' => ':attributeを入力してください。',
             'integer' => ':attributeを正しく入力してください。',
             'string' => ':attributeを正しく入力してください。',
-            'max' => ':attributeは:max文字以内で入力してください。',
-            'date' => ':attributeは日付で入力してください。',
+            'date' => ':attributeは日付で入力してください',
+            'array' => ':attributeは正しい形で入力してください'
         ];
     }
 
     public function attributes()
     {
         return [
-            'owner_id' => 'ownerId',
-            'project_name'   => 'プロジェクト名',
-            'dead_line'    => '納期',
-            'expected_all_operating_time'    => '１ヶ月の予測工数',
-            'earning'    => '１ヶ月の売上',
-            'earning_year_month'    => '振り込み予定日',
-            'contract_expired_date'    => '契約更新日',
-            'remark'    => '課題',
+            'role' => '役割',
+            'unit_price' => '単価',
+            'expected_operating_time' => '予定工数',
+            'bill_send_date'    => '請求書送付日',
+            'user_contract_date' => '契約開始日',
+            'user_expired_date' => '契約更新日',
         ];
     }
 

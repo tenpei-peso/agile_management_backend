@@ -17,6 +17,12 @@ class ProjectUser extends Model
     public function bills () {
         return $this->hasMany(Bill::class);
     }
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+    public function roles() {
+        return $this->belongsToMany(Role::class, 'project_users_roles');
+    }
 
     //userProject一覧表示
     public function getUserProject ($userId) {
@@ -62,6 +68,56 @@ class ProjectUser extends Model
         }
     }
 
+    //メンバー管理画面メンバー表示
+    public function getMemberData ($project_id) {
+        try {
+            $memberData = $this->where('project_id', $project_id)->with(['user', 'roles', 'bills'])->get();
+            $arrangeData = [];
+            foreach ($memberData as $key => $member) {
+                //合計稼働時間計算
+                $month_operating_time = 0;
+                if($member['bills']->isEmpty()) {
+                    $month_operating_time = 0;
+                } else {
+                    foreach ($member['bills'] as $key => $bill) {
+                        $month_operating_time += $bill['month_operating_time'];
+                    };
+                }
+
+                $pushData = [
+                    "photo_path" => $member['user']['photo_path'],
+                    "name" => $member['user']['name'],
+                    "role" => $member['roles'],
+                    "unit_price" => $member['unit_price'],
+                    "expected_operating_time" => $member['expected_operating_time'],
+                    "month_operating_time" => $month_operating_time,
+                    "user_contract_date" => $member['user_contract_date'],
+                    "user_expired_date" => $member['user_expired_date'],
+                    "contract_pdf_path" => $member['contract_pdf_path']
+                ];
+                $arrangeData[] = $pushData;
+            }
+            return $arrangeData;
+        } catch (\Exception $e) {
+            Log::emergency($e->getMessage());
+            throw $e;
+        }
+    }
+
+    //オーナーメンバー管理画面 編集
+    public function updateOwnerMemberManagement ($request, $id) {
+        unset($request['project_user_id']);
+        unset($request['role']);
+        unset($request['category_id']);
+        try {
+            $this->where('id', $id)->update($request);
+        } catch (\Exception $e) {
+            Log::emergency($e->getMessage());
+            throw $e;
+        }
+    }
+
+    //backlog
     public function updateJoinProject ($id, $join_project) {
         try {
             $updateData = $this->where('id', $id)->update(['join_project' => $join_project]);
