@@ -26,7 +26,6 @@ class CreateProject extends FormRequest
     public function rules()
     {
         return [
-            'owner_id' => ['required', 'integer'],
             'project_name' => ['required', 'string'],
             'dead_line' => ['required', 'date'],
             'expected_all_operating_time' => ['required', 'integer'],            
@@ -51,7 +50,6 @@ class CreateProject extends FormRequest
     public function attributes()
     {
         return [
-            'owner_id' => 'ownerId',
             'project_name'   => 'プロジェクト名',
             'dead_line'    => '納期',
             'expected_all_operating_time'    => '１ヶ月の予測工数',

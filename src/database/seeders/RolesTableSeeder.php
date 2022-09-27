@@ -16,19 +16,19 @@ class RolesTableSeeder extends Seeder
     {
         DB::table('roles')->insert([
             [
-                'category_id' => 1,
+                'project_id' => 1,
                 'name' => 'DB設計',
             ],
             [
-                'category_id' => 3,
+                'project_id' => 1,
                 'name' => 'フロントエンドエンジニア',
             ],
             [
-                'category_id' => 3,
+                'project_id' => 1,
                 'name' => 'バックエンドエンジニア',
             ],
             [
-                'category_id' => 3,
+                'project_id' => 2,
                 'name' => 'サーバーサイドエンジニア',
             ],
             
