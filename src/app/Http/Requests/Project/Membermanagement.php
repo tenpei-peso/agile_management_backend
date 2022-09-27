@@ -28,12 +28,8 @@ class Membermanagement extends FormRequest
     public function rules()
     {
             return [
-                'role' => ['array'],
                 'unit_price' => ['integer'],
                 'expected_operating_time' => ['integer'],
-                'bill_send_date' => ['integer'],
-                'user_contract_date' => ['date'],
-                'user_expired_date' => ['date'],
             ];
     }
 
@@ -51,7 +47,7 @@ class Membermanagement extends FormRequest
     public function attributes()
     {
         return [
-            'role' => '役割',
+            'roles' => '役割',
             'unit_price' => '単価',
             'expected_operating_time' => '予定工数',
             'bill_send_date'    => '請求書送付日',
@@ -65,7 +61,7 @@ class Membermanagement extends FormRequest
         $response = response()->json([
             'status' => 400, //jsonの返事の中身のエラー番号
             'errors' => $validator->errors(),
-        ],400); //実際に送られるresponse codeが400番 これが無いと、jsonでエラーメッセージは返ってくるけど送れらてくるのは200番のstatusOKとくる。
+        ],401); //実際に送られるresponse codeが400番 これが無いと、jsonでエラーメッセージは返ってくるけど送れらてくるのは200番のstatusOKとくる。
 
         //例外を知らせる。
         //throw new 例外クラス名（例外message）

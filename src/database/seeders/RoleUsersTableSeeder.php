@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ProjectUsersRolesTableSeeder extends Seeder
+class RoleUsersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,28 +14,27 @@ class ProjectUsersRolesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('project_users_roles')->insert([
+        DB::table('role_users')->insert([
             [
-                'project_user_id' => 1,
+                'user_id' => 1,
                 'role_id' => 1,
             ],
             [
-                'project_user_id' => 1,
+                'user_id' => 1,
                 'role_id' => 2,
             ],
             [
-                'project_user_id' => 2,
+                'user_id' => 2,
                 'role_id' => 3,
             ],
             [
-                'project_user_id' => 3,
-                'role_id' => 4,
+                'user_id' => 3,
+                'role_id' => 2,
             ],
             [
-                'project_user_id' => 3,
+                'user_id' => 4,
                 'role_id' => 3,
             ],
-            
         ]);
     }
 }

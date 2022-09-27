@@ -27,6 +27,10 @@ class Project extends Model
         return $this->belongsToMany(User::class, 'project_users');
     }
 
+    public function roles () {
+        return $this->hasMany(Role::class);
+    }
+
     //オーナーのプロジェクト一覧画面表示
     public function getOwnerProject ($owner_id) {
         try {

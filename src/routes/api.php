@@ -33,6 +33,8 @@ Route::post('/update_join_project', [ProjectUserController::class, 'updateJoinPr
 Route::get('/owner/get_member_management/{project_id}', [ProjectUserController::class, 'getOwnerMemberManagement']);
 //オーナー メンバー管理画面 編集
 Route::post('/owner/update_member_management', [ProjectUserController::class, 'updateOwnerMemberManagement']);
+//オーナー メンバー管理画面詳細 表示
+Route::get('/owner/detail_member_management/{project_user_id}', [ProjectUserController::class, 'getDetailOwnerMemberManagement']);
 
 
 //オーナー プロジェクト一覧画面
