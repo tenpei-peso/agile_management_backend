@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\BillController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectUserController;
 use App\Http\Controllers\TimeCardController;
@@ -43,3 +44,5 @@ Route::get('/owner/get_project_list/{owner_id}', [ProjectController::class, 'get
 Route::post('/owner/create_project', [ProjectController::class, 'createOwnerProject']);
 //オーナープロジェクト編集
 Route::post('/owner/update_project', [ProjectController::class, 'updateOwnerProject']);
+
+Route::post('/get_bill_pdf', [BillController::class, 'getBillPdf']);
