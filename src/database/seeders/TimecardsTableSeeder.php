@@ -26,9 +26,9 @@ class TimecardsTableSeeder extends Seeder
                 'ticket_name' => 'コロコロAPI実装',
                 'start_time' =>"16:00:00",
                 'finish_time' =>"21:00:00",
-                'rest_time'=>60,
+                'rest_time'=>60, //01:15などtimeがた
                 'operating_time' =>420,
-                'expense' =>4000,
+                'expense' =>4000, //string
                 'remark' =>'交通費',
             ],
             [

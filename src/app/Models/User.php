@@ -56,4 +56,27 @@ class User extends Authenticatable
             return $e;
         }
     }
+
+    public function getUserData($id) {
+        try {
+            $userData = $this->where('id', $id)->get();
+            return $userData;
+        } catch (Exception $e){
+            Log::emergency($e->getMessage());
+            return $e;
+        }
+    }
+
+        //backlogAPI情報を設定
+    public function settingBacklog($input, $allData) {
+        try {
+            unset($allData['id']);
+            Log::info($allData);
+            $settingData = $this->where('id', $input)->update($allData);
+            return $settingData;
+        } catch (Exception $e){
+            Log::emergency($e->getMessage());
+            return $e;
+        }
+    }
 }

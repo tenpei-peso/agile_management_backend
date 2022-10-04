@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TimeCardCreateRequest;
 use App\Models\ProjectUser;
 use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 
@@ -21,13 +22,13 @@ class ProjectUserController extends Controller
             $timecards_inputs = $timecard_create_request->all();
 
             //timecardテーブルに登録処理。
-            foreach($timecards_inputs as $timecards_input){
+            foreach($timecards_inputs as $timecards_input){ //受け取るpostの値は連想配列？
             //rest_timeを分に直す
-            $rest_time_hour = (int) date("H",strtotime($timecards_input['rest_time']));
+            $rest_time_hour = (int) date("H",strtotime($timecards_input['rest_time']));  //01:15なら $data = explode(':', '値') $data[0]*60 + $data[1]でいけそう
             $rest_time_minute = (int) date("i",strtotime($timecards_input['rest_time']));
             $rest_time_sum = $rest_time_hour*60+$rest_time_minute;
             //いらないデータを消す
-            unset($timecards_input['rest_time'],$timecards_input['id'],$timecards_input['data_number']);
+            unset($timecards_input['rest_time'],$timecards_input['id'],$timecards_input['data_number']);//idはcreateされた時に自動生成 なぜrest_time消す？
             //分に直したデータを追加
             $organized_timecards_input = array_merge($timecards_input,['rest_time'=>$rest_time_sum]);
             //登録処理
@@ -61,6 +62,19 @@ class ProjectUserController extends Controller
         try {
             $projectListData = $projectUser->getUserProject($userId);
             return $projectListData;
+        } catch(Exception $e) {
+            Log::info('Controllerで取得できませんでした');
+            Log::emergency($e->getMessage());
+            throw $e;
+        }
+    }
+    //join_projectをupdate
+    public function updateJoinProject (ProjectUser $projectUser, Request $request) {
+        $id = $request->input('id');
+        $join_project = $request->input('join_project');
+        try {
+            $updateData = $projectUser->updateJoinProject($id, $join_project);
+            return $updateData;
         } catch(Exception $e) {
             Log::info('Controllerで取得できませんでした');
             Log::emergency($e->getMessage());

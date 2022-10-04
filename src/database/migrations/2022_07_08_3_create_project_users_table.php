@@ -24,6 +24,7 @@ class CreateProjectUsersTable extends Migration
             $table->string('contract_pdf_path')->comment('契約書のpath');
             $table->date('user_contract_date')->comment('前回の契約更新日/契約開始日');
             $table->date('user_expired_date')->comment('契約更新日/契約失効日');
+            $table->integer('join_project')->nullable()->comment('backlog設定で設定したプロジェクト');
             $table->timestamps();
         });
     }
