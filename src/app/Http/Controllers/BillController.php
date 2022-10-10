@@ -39,4 +39,16 @@ class BillController extends Controller
             throw $e;
         }
     }
+
+    public function getBillPdf (Bill $bill, Request $request) {
+        try {
+            $pdf = $bill->getBillPdf($request->all());
+
+            return $pdf;
+        } catch(\Exception $e) {
+            Log::info('Controllerで取得できませんでした');
+            Log::emergency($e->getMessage());
+            throw $e;
+        }
+    }
 }

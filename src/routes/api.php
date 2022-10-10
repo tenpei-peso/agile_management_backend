@@ -49,3 +49,5 @@ Route::post('/owner/update_project', [ProjectController::class, 'updateOwnerProj
 Route::post('/owner/get_bills_list', [BillController::class, 'getOwnerBillsList']);
 //オーナーメンバー管理画面から請求書一覧
 Route::post('/owner/get_bills_list_with_member_management', [BillController::class, 'getBillListWithMemberManagement']);
+//pdf機能
+Route::post('/get_bill_pdf', [BillController::class, 'getBillPdf']);
